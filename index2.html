@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi mejor amiga</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .contenedor {
+            text-align: center;
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0px 15px 35px rgba(214, 51, 132, 0.2);
+            max-width: 450px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        img {
+            max-width: 220px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        h1 {
+            color: #4a4a4a;
+            font-size: 26px;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        button {
+            padding: 14px 32px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-si {
+            background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%);
+            color: white;
+        }
+        #btnNo {
+            background: linear-gradient(135deg, #ff4b2b 0%, #ff416c 100%);
+            color: white;
+        }
+        
+        .btn-leer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 20px auto 0 auto;
+            font-size: 16px;
+            padding: 12px 25px;
+        }
+        .btn-continuar, .btn-de-acuerdo {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            color: white;
+            margin: 25px auto 0 auto;
+            font-size: 15px;
+            padding: 12px 28px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.03);
+        }
+
+        .carta-final {
+            display: none;
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: justify;
+            margin-top: 25px;
+            white-space: pre-line;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <img src="https://i.imgur.com/vHqLh75.jpg" alt="Gatito" id="imagen">
+        
+        <h1 id="tituloDinamico">Hola... Quería dejarte este pequeño detalle de disculpa ✉️</h1>
+        
+        <button id="btnLeerCarta" class="btn-leer" onclick="mostrarCarta()">Presiona aquí para abrirlo</button>
+
+        <!-- Bloque del Primer Texto -->
+        <div id="mensajeLargo" class="carta-final"></div>
+
+        <!-- Segundo Botón -->
+        <button id="btnContinuarCarta" class="btn-continuar" style="display: none;" onclick="mostrarParteDos()">Continuar leyendo... ✨</button>
+
+        <!-- Bloque del Segundo Texto -->
+        <div id="mensajeParteDos" class="carta-final"></div>
+
+        <!-- Sección intermedia: "ahora tengo una pequeña pregunta..." + Botón "De acuerdo" -->
+        <div id="seccionIntermedia" style="display: none; flex-direction: column; align-items: center; margin-top: 25px; animation: fadeIn 1s ease-in-out;">
+            <h2 style="color: #4a4a4a; font-size: 20px; margin-bottom: 5px;">ahora tengo una pequeña pregunta para ti...</h2>
+            <button class="btn-de-acuerdo" onclick="mostrarPreguntaFinal()">De acuerdo</button>
+        </div>
+
+        <!-- Sección de Votación Final (Únicamente la pregunta y los botones) -->
+        <div id="seccionPregunta" class="botones" style="display: none; animation: fadeIn 0.8s ease-in-out;">
+            <button id="btnSi" class="btn-si" onclick="aceptar()">Sí</button>
+            <button id="btnNo" onclick="intentosNo()">no</button>
+        </div>
+    </div>
+
+    <script>
+        let contadorClicks = 0;
+
+        function mostrarCarta() {
+            document.getElementById('btnLeerCarta').style.display = 'none';
+            document.getElementById('tituloDinamico').innerHTML = "Para mi mejor amiga";
+
+            const textoCarta = `Gracias por la confianza, el cariño y el afecto que alguna vez me diste. Sé que eso no se recupera solo con palabras, sino con acciones, y eso es lo que estoy intentando demostrar.
+
+            Alguna vez me gané ese lugar siendo yo mismo: haciendo lo que mejor sabía hacer, siendo creativo, atento y estando ahí de corazón. Creo que eso es algo que me caracteriza, hacer las cosas con sinceridad y porque realmente me importan.
+
+            Esto apenas empieza, me esforcé mucho tratando de entender cómo hacer algo así y hasta busqué ayuda porque de verdad quería hacerlo bien. Espero que te guste y, sobre todo, espero que puedas perdonarme.
+
+            Me gustaría volver a ganarme tu confianza y que algún día podamos volver a ser mejores amigos como antes.`;
+
+            const contenedorMensaje = document.getElementById('mensajeLargo');
+            contenedorMensaje.innerHTML = textoCarta;
+            contenedorMensaje.style.display = 'block';
+
+            document.getElementById('btnContinuarCarta').style.display = 'block';
+        }
+
+        function mostrarParteDos() {
+            document.getElementById('btnContinuarCarta').style.display = 'none';
+
+            const textoParteDos = `¿Crees que eso era todo? Bueno, disculpa por hacerte leer todo esto, pero es lo que más me salía del corazón. Además, siento que demuestra quién soy y lo mucho que de verdad quiero que vuelvas a mi vida.
+
+            La verdad, nunca tuve la necesidad de esforzarme demasiado por algo o por alguien. Siempre sentí que todo se me hacía fácil, y eso llegó a sentirse aburrido. Hasta que llegaste tú.
+
+            No sabía cómo actuar para ser un mejor amigo y seguía con la misma forma de pensar, creyendo que mis disculpas eran suficientes aunque muchas veces ni siquiera salieran de mi boca. Pero ahora entiendo que no se trata solo de decirlo, sino de demostrarlo.
+
+            Tú cambiaste muchas cosas en mi vida. Me mostraste que existen diferentes colores en ella, me diste comprensión, cariño y una amistad que de verdad valoro mucho. Y por eso quiero pedirte perdón por las veces que fui egoísta, por seguir solo mis propios pensamientos y por no cuidar algo tan importante.
+
+            Sé que quizá las cosas no vuelvan a ser iguales de inmediato, y entiendo que todavía tengo que recuperar lo que perdí y demostrar con acciones que puedo mejorar. Solo quiero que sepas que tu valor en mi vida es enorme.
+
+            Aprendí que aunque alguien sea muy importante para mí, eso no me da derecho a tratarlo mal o hacerle daño. Gracias por todo lo que me diste, y perdón por todo lo que hice mal.
+
+            Al final, la decisión es tuya y voy a respetar lo que decidas. Solo quería que supieras que de verdad me importas y que estoy dispuesto a demostrarlo.`;
+
+            const contenedorParteDos = document.getElementById('mensajeParteDos');
+            contenedorParteDos.innerHTML = textoParteDos;
+            contenedorParteDos.style.display = 'block';
+
+            // Al terminar la carta, aparece la invitación intermedia
+            setTimeout(() => {
+                document.getElementById('seccionIntermedia').style.display = 'flex';
+            }, 1200);
+        }
+
+        function mostrarPreguntaFinal() {
+            // AQUÍ ESTÁ EL TRUCO: Ocultamos absolutamente todo el texto previo para limpiar la pantalla
+            document.getElementById('mensajeLargo').style.display = 'none';
+            document.getElementById('mensajeParteDos').style.display = 'none';
+            document.getElementById('seccionIntermedia').style.display = 'none';
+            
+            // Ponemos únicamente la gran pregunta en el título principal
+            document.getElementById('tituloDinamico').innerHTML = "¿Quieres volver a ser mi mejor amiga? 🥺";
+            
+            // Mostramos los botones de votación en un espacio totalmente limpio
+            document.getElementById('seccionPregunta').style.display = 'flex';
+        }
+
+        function intentosNo() {
+            contadorClicks++;
+            const btnNo = document.getElementById('btnNo');
+
+            if (contadorClicks === 1) {
+                btnNo.innerHTML = "¿Segura? 🥺";
+            } else if (contadorClicks === 2) {
+                btnNo.innerHTML = "Piénsalo bien... 💔";
+            } else if (contadorClicks >= 3) {
+                btnNo.innerHTML = "Sí";
+                btnNo.className = "btn-si";
+                btnNo.onclick = aceptar;
+            }
+        }
+
+        function aceptar() {
+            document.getElementById('tituloDinamico').innerHTML = "¡Sabía que dirías que sí! ❤️";
+            document.getElementById('seccionPregunta').style.display = 'none';
+            document.getElementById('imagen').src = "https://i.imgur.com/Z9MvJ0p.gif"; 
+        }
+    </script>
+</body>
+</html>
